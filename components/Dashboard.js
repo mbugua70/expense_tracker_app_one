@@ -2,25 +2,31 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 
-const Dashboard = () => {
+const Dashboard = ({ expenses }) => {
+  const expensesTotal = expenses.reduce((sum, expense) => {
+    return sum + expense.amount;
+  }, 0);
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer}>
-         <View style={styles.dashboardContainer}>
-         <MaterialIcons name="dashboard" size={24} color="black" />
-         <Text style={styles.textDashboard}>Dashboard</Text>
-         </View>
-           <View style={styles.imageMain}>
-           <Image source={require("../assets/profile/profile.jpg")}  style={styles.image}/>
-           </View>
+        <View style={styles.dashboardContainer}>
+          <MaterialIcons name="dashboard" size={24} color="black" />
+          <Text style={styles.textDashboard}>Dashboard</Text>
+        </View>
+        <View style={styles.imageMain}>
+          <Image
+            source={require("../assets/profile/profile.jpg")}
+            style={styles.image}
+          />
+        </View>
       </View>
       <View style={styles.totalContainer}>
         <Text style={styles.totalTextOne}>Kshs</Text>
-        <Text style={styles.totalText}>30000</Text>
+        <Text style={styles.totalText}>{expensesTotal.toFixed(2)}</Text>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export default Dashboard;
 

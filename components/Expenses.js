@@ -4,23 +4,23 @@ import HeaderExpenses from './HeaderExpenses'
 import ExpensesContainer from './ExpensesContainer'
 
 
-const Expenses = () => {
+const Expenses = ({ expenses }) => {
   return (
     <View style={styles.screen}>
-        {/* heading for expenses and button */}
-        <HeaderExpenses />
+      {/* heading for expenses and button */}
+      <HeaderExpenses />
 
-        {/* expenses components */}
-        <ExpensesContainer />
+      {/* expenses components */}
+      <ExpensesContainer expenses={expenses} />
     </View>
-  )
-}
+  );
+};
 
-export default Expenses
+export default Expenses;
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 2,
-        paddingHorizontal: 20,
-    }
-})
+  screen: {
+    flex: 2,
+    paddingHorizontal: 10,
+  },
+});
