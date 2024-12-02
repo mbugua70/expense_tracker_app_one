@@ -2,11 +2,7 @@ import { View, Text } from 'react-native'
 
 
 const RecentExpenses = () => {
-  return (
-    <View>
-      <Text>RecentExpenses</Text>
-    </View>
-  )
+  return <View>{/* recent expenses */}</View>;
 }
 
 export default RecentExpenses
