@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
+import TotalDashboard from "./TotalDashboard";
+import HeaderExpenses from "../components/HeaderExpenses";
 
 const Dashboard = ({ expenses }) => {
   const expensesTotal = expenses.reduce((sum, expense) => {
@@ -20,10 +21,8 @@ const Dashboard = ({ expenses }) => {
           />
         </View>
       </View>
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalTextOne}>Kshs</Text>
-        <Text style={styles.totalText}>{expensesTotal.toFixed(2)}</Text>
-      </View>
+      <TotalDashboard expensesTotal={expensesTotal} />
+      <HeaderExpenses />
     </View>
   );
 };
@@ -31,66 +30,42 @@ const Dashboard = ({ expenses }) => {
 export default Dashboard;
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        padding: 20,
-    },
+  screen: {
+    flex: 1,
+    padding: 20,
+  },
 
-    imageContainer: {
-     flexDirection: "row",
-     justifyContent: "space-between",
-     alignItems: "center"
-    },
+  imageContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 
-    dashboardContainer: {
-        flexDirection: "row",
-        justifyContent: 'center',
-        alignItems: "center"
-    },
+  dashboardContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 
-    textDashboard: {
-        fontSize: 20,
-        fontWeight: "bold"
-    },
+  textDashboard: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
 
-    imageMain: {
-        width: 48,
-        height: 48,
-        borderRadius: 8,
-        overflow: 'hidden',
-        elevation: 4,
-        shadowColor: "black",
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.25,
-        shadowRadius: 8
-    },
+  imageMain: {
+    width: 48,
+    height: 48,
+    borderRadius: 8,
+    overflow: "hidden",
+    elevation: 4,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+  },
 
-    image: {
-        width: "100%",
-        height: "100%"
-    },
-
-    totalContainer: {
-       height: 100,
-       backgroundColor: "#171717",
-       marginVertical: 26,
-       borderRadius: 28,
-       flexDirection: "row",
-       alignItems: "center",
-       justifyContent: "center"
-    },
-
-    totalTextOne: {
-      color: "#fff",
-      fontSize: 20,
-      fontWeight: "600",
-      marginHorizontal: 4
-    },
-
-    totalText: {
-      color: "#fff",
-      marginHorizontal: 4,
-      fontSize: 34,
-      fontWeight: "bold"
-    }
-})
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+});

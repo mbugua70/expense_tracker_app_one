@@ -52,18 +52,27 @@ function BottomTabNavigator () {
 
 export default function App() {
   return (
-     <>
-       <StatusBar style='light' />
-       <NavigationContainer>
-         <Stack.Navigator>
-            <Stack.Screen name="Expenses"  component={BottomTabNavigator} options={{
+    <>
+      <StatusBar style="light" />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Expenses"
+            component={BottomTabNavigator}
+            options={{
               headerShown: false,
-            }}/>
-            <Stack.Screen name='Manage Expense' component={ManageExpense}/>
-         </Stack.Navigator>
-
-       </NavigationContainer>
-     </>
+            }}
+          />
+          <Stack.Screen
+            name="ManageExpense"
+            component={ManageExpense}
+            options={{
+              headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 

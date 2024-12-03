@@ -7,9 +7,6 @@ import ExpensesContainer from './ExpensesContainer'
 const Expenses = ({ expenses }) => {
   return (
     <View style={styles.screen}>
-      {/* heading for expenses and button */}
-      <HeaderExpenses />
-
       {/* expenses components */}
       <ExpensesContainer expenses={expenses} />
     </View>
@@ -22,5 +19,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 2,
     paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 0,
+    marginBottom: 0,
   },
 });

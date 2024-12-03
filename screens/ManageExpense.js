@@ -1,12 +1,20 @@
-import { View, Text } from 'react-native'
-
+import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import ManageExpenseDetail from "../components/ManageExpenseDetail";
 
 const ManageExpense = () => {
   return (
-    <View>
-      <Text>ManageExpense</Text>
-    </View>
-  )
-}
+    <>
+      <View style={styles.screen}>
+        <ManageExpenseDetail />
+      </View>
+    </>
+  );
+};
 
-export default ManageExpense
+export default ManageExpense;
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
+});

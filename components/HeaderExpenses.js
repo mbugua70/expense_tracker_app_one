@@ -15,12 +15,14 @@ export default HeaderExpenses
 
 const styles = StyleSheet.create({
   screen: {
-     flexDirection: "row",
-     justifyContent: "space-between"
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginEnd: 10,
   },
 
   headerExpnse: {
     fontSize: 18,
-    fontWeight: "bold"
-  }
-})
+    fontWeight: "bold",
+  },
+});
