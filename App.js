@@ -8,46 +8,49 @@ import AllExpenses from './screens/AllExpenses';
 import RecentExpenses from './screens/RecentExpenses';
 import { GlobalStyles } from './constants/styles';
 import TabBarIcon from './components/TabBarIcon';
+import BackButtonIcon from "./components/BackButtonIcon";
 
-const Stack = createNativeStackNavigator()
-const BottomTab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator();
 
-
-function BottomTabNavigator () {
+function BottomTabNavigator() {
   return (
     <>
-    <BottomTab.Navigator screenOptions={{
-      headerStyle: {backgroundColor: GlobalStyles.colors.primary800},
-      headerTintColor: "#fff",
-      tabBarStyle: {backgroundColor: GlobalStyles.colors.primary800},
-      tabBarActiveTintColor: GlobalStyles.colors.accent600,
-
-
-    }}>
-     <BottomTab.Screen name='All Expenses' component={AllExpenses} options={{
-      title: "All Expenses",
-      tabBarLabel: "All Expenses",
-      tabBarLabelPosition: "beside-icon",
-      tabBarIcon: (({color, size}) => {
-        return (
-          <TabBarIcon name="calendar" color={color} size={size} />
-        )
-      })
-     }}/>
-     <BottomTab.Screen name='Recent Expenses' component={RecentExpenses} options={{
-      title: "Recent Expenses",
-      tabBarLabelPosition: "beside-icon",
-      tabBarLabel: 'Recent',
-      tabBarIcon: (({color, size}) => {
-       return (
-         <TabBarIcon name="hourglass" color={color} size={size}/>
-       )
-      })
-
-     }}/>
-    </BottomTab.Navigator>
+      <BottomTab.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
+          headerTintColor: "#fff",
+          tabBarStyle: { backgroundColor: GlobalStyles.colors.primary800 },
+          tabBarActiveTintColor: GlobalStyles.colors.accent600,
+        }}
+      >
+        <BottomTab.Screen
+          name="All Expenses"
+          component={AllExpenses}
+          options={{
+            title: "All Expenses",
+            tabBarLabel: "All Expenses",
+            tabBarLabelPosition: "beside-icon",
+            tabBarIcon: ({ color, size }) => {
+              return <TabBarIcon name="calendar" color={color} size={size} />;
+            },
+          }}
+        />
+        <BottomTab.Screen
+          name="Recent Expenses"
+          component={RecentExpenses}
+          options={{
+            title: "Recent Expenses",
+            tabBarLabelPosition: "beside-icon",
+            tabBarLabel: "Recent",
+            tabBarIcon: ({ color, size }) => {
+              return <TabBarIcon name="hourglass" color={color} size={size} />;
+            },
+          }}
+        />
+      </BottomTab.Navigator>
     </>
-  )
+  );
 }
 
 export default function App() {
@@ -68,6 +71,11 @@ export default function App() {
             component={ManageExpense}
             options={{
               headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
+              headerBackButtonDisplayMode: "minimal",
+              headerShadowVisible: false,
+              headerLeft: ({ headerTintColor }) => {
+                return <BackButtonIcon tintColor={headerTintColor} />;
+              },
             }}
           />
         </Stack.Navigator>
