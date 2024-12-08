@@ -58,7 +58,11 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            contentStyle: { backgroundColor: "#000000" },
+          }}
+        >
           <Stack.Screen
             name="Expenses"
             component={BottomTabNavigator}

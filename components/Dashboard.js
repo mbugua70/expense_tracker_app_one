@@ -31,7 +31,7 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    // flex: 2,
     padding: 20,
   },
 
