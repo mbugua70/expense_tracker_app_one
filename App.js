@@ -74,6 +74,7 @@ export default function App() {
             name="ManageExpense"
             component={ManageExpense}
             options={{
+              presentation: "modal",
               headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
               headerBackButtonDisplayMode: "minimal",
               headerShadowVisible: false,

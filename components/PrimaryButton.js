@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     margin: 10,
   },
-
   screenButton: {
     justifyContent: "center",
     alignItems: "center",
     width: 50,
     height: 50,
   },
+
 });

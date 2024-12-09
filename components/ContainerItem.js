@@ -13,6 +13,7 @@ export default ContainerItem;
 
 const styles = StyleSheet.create({
   screen: {
+    marginTop: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
