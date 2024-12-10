@@ -1,11 +1,19 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { GlobalStyles } from "../constants/styles";
+import { useNavigation } from "@react-navigation/native";
 
 const AddNewExpense = () => {
+  const navigation = useNavigation();
+
+  function handleAddExpense() {
+    navigation.navigate("ManageExpenses");
+  }
+
   return (
     <View style={styles.screen}>
       <Pressable
+        onPress={handleAddExpense}
         style={({ pressed }) =>
           pressed
             ? [styles.pressedContainer, styles.pressed]

@@ -11,7 +11,7 @@ const ManageExpense = ({ route }) => {
         <ManageExpenseDetail expenseID={expenseID} />
         {/* we will have a button (delete or add button or both) */}
 
-        <ManageButton />
+        <ManageButton expenseID={expenseID} />
       </View>
     </>
   );

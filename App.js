@@ -9,6 +9,7 @@ import RecentExpenses from './screens/RecentExpenses';
 import { GlobalStyles } from './constants/styles';
 import TabBarIcon from './components/TabBarIcon';
 import BackButtonIcon from "./components/BackButtonIcon";
+import AddEdit from "./screens/AddEdit";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -74,6 +75,20 @@ export default function App() {
             name="ManageExpense"
             component={ManageExpense}
             options={{
+              presentation: "modal",
+              headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
+              headerBackButtonDisplayMode: "minimal",
+              headerShadowVisible: false,
+              headerLeft: ({ headerTintColor }) => {
+                return <BackButtonIcon tintColor={headerTintColor} />;
+              },
+            }}
+          />
+          <Stack.Screen
+            name="ManageExpenses"
+            component={AddEdit}
+            options={{
+              contentStyle: { backgroundColor: "#fff" },
               presentation: "modal",
               headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
               headerBackButtonDisplayMode: "minimal",

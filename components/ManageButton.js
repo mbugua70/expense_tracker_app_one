@@ -1,10 +1,15 @@
 import { View, Text, StyleSheet } from "react-native";
 import PrimaryButton from "./PrimaryButton";
 import { GlobalStyles } from "../constants/styles";
+import { useNavigation } from "@react-navigation/native";
 
-const ManageButton = () => {
+const ManageButton = ({ expenseID }) => {
+  const navigation = useNavigation();
+
   function handleAddExpense() {
-    console.log("expense Added");
+    navigation.navigate("ManageExpenses", {
+      id: expenseID,
+    });
   }
 
   function handleDeleteExpense() {

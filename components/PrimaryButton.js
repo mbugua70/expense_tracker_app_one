@@ -6,7 +6,12 @@ import { GlobalStyles } from "../constants/styles";
 const PrimaryButton = ({ onPress, icon, color, backGroundColor }) => {
   return (
     <View style={[styles.screen, { backgroundColor: backGroundColor }]}>
-      <Pressable style={styles.screenButton} onPress={onPress}>
+      <Pressable
+        style={({ pressed }) =>
+          pressed ? [styles.screenButton, styles.pressed] : styles.screenButton
+        }
+        onPress={onPress}
+      >
         <Ionicons name={icon} size={24} color={color} />
       </Pressable>
     </View>
@@ -28,4 +33,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
 
+  pressed: {
+    opacity: 0.25,
+  },
 });
