@@ -4,15 +4,17 @@ import Expenses from '../components/Expenses'
 import HeaderExpenses from "../components/HeaderExpenses";
 import AddNewExpense from "../components/AddNewExpense";
 import { DUMMY_EXPENSES } from "../constants/dummy-data";
-
+import { ExpenseContext } from "../store/expenseContext";
+import { useContext } from "react";
 
 const AllExpenses = () => {
+  const { expenseData } = useContext(ExpenseContext);
   return (
     <View style={styles.screen}>
-      <Dashboard expenses={DUMMY_EXPENSES} />
+      <Dashboard expenses={expenseData} />
       {/* heading for expenses and button */}
       {/* <HeaderExpenses /> */}
-      <Expenses expenses={DUMMY_EXPENSES} />
+      <Expenses expenses={expenseData} />
       <AddNewExpense />
     </View>
   );

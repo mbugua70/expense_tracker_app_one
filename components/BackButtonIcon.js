@@ -11,7 +11,7 @@ const BackButtonIcon = ({ tintColor }) => {
   return (
     <View style={styles.screen}>
       <Pressable onPress={handleBackButton} style={styles.buttonContainer}>
-        <Ionicons name="arrow-back" size={24} color={tintColor} />
+        <Ionicons name="close" size={24} color={tintColor} />
       </Pressable>
     </View>
   );

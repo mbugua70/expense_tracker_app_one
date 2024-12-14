@@ -10,6 +10,7 @@ import { GlobalStyles } from './constants/styles';
 import TabBarIcon from './components/TabBarIcon';
 import BackButtonIcon from "./components/BackButtonIcon";
 import AddEdit from "./screens/AddEdit";
+import ExpenseContextProvider from "./store/expenseContext";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -17,6 +18,7 @@ const BottomTab = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
     <>
+
       <BottomTab.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
@@ -57,6 +59,7 @@ function BottomTabNavigator() {
 export default function App() {
   return (
     <>
+    <ExpenseContextProvider>
       <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator
@@ -100,6 +103,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </ExpenseContextProvider>
     </>
   );
 }

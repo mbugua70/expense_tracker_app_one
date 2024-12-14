@@ -4,11 +4,13 @@ import Expenses from "../components/Expenses";
 import ExpensesContainer from "../components/ExpensesContainer";
 import RecentHeaderContainer from "../components/RecentHeaderContainer";
 import { DUMMY_EXPENSES } from "../constants/dummy-data";
-
-
+import { ExpenseContext } from "../store/expenseContext";
+import { useContext } from "react";
 
 const RecentExpenses = () => {
-  const expensesTotal = DUMMY_EXPENSES.reduce((sum, expense) => {
+  const { expenseData } = useContext(ExpenseContext);
+
+  const expensesTotal = expenseData.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0);
   return (
@@ -21,7 +23,7 @@ const RecentExpenses = () => {
       />
 
       <View style={styles.recentContainer}>
-        <ExpensesContainer expenses={DUMMY_EXPENSES} />
+        <ExpensesContainer expenses={expenseData} />
       </View>
     </View>
   );

@@ -1,16 +1,18 @@
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { GlobalStyles } from "../constants/styles";
-import { DUMMY_EXPENSES } from "../constants/dummy-data";
-import { useLayoutEffect } from "react";
+// import { DUMMY_EXPENSES } from "../constants/dummy-data";
+import { useContext, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import RecentHeaderContainer from "./RecentHeaderContainer";
 import ExpenseDetails from "./ExpenseDetails";
+import { ExpenseContext } from "../store/expenseContext";
 
 const ManageExpenseDetail = ({ expenseID }) => {
+  const { expenseData } = useContext(ExpenseContext);
   const navigation = useNavigation();
   const id = expenseID.expensesID;
-  const expenseDetails = DUMMY_EXPENSES.find(
+  const expenseDetails = expenseData.find(
     (expenseDetail) => expenseDetail.id === id
   );
 
