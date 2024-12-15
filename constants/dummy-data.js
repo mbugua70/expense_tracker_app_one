@@ -5,7 +5,7 @@ export const DUMMY_EXPENSES = [
     description: "A pair of shoes",
     amount: 59.2,
     date: new Date("2024-12-1"),
-    category: "social_need",
+    category: "home",
   },
   {
     id: "e2",
@@ -13,7 +13,7 @@ export const DUMMY_EXPENSES = [
     description: "lorem test one",
     amount: 12.2,
     date: new Date("2023-12-1"),
-    category: "drink",
+    category: "coffee",
   },
   {
     id: "e3",
@@ -21,7 +21,7 @@ export const DUMMY_EXPENSES = [
     title: "Mug",
     amount: 10.2,
     date: new Date("2024-10-1"),
-    category: "drink",
+    category: "coffee",
   },
   {
     id: "e4",
@@ -29,7 +29,7 @@ export const DUMMY_EXPENSES = [
     title: "Laptop",
     amount: 9.2,
     date: new Date("2014-12-1"),
-    category: "secondary_need",
+    category: "coins",
   },
   {
     id: "e5",
@@ -37,7 +37,7 @@ export const DUMMY_EXPENSES = [
     title: "Suit",
     amount: 100.2,
     date: new Date("2022-8-1"),
-    category: "social_need",
+    category: "coins",
   },
   {
     id: "e6",
@@ -45,6 +45,6 @@ export const DUMMY_EXPENSES = [
     title: "Book",
     amount: 33.2,
     date: new Date("2024-12-1"),
-    category: "social_need",
+    category: "coins",
   },
 ];

@@ -16,14 +16,14 @@ const ManageExpenseDetail = ({ expenseID }) => {
     (expenseDetail) => expenseDetail.id === id
   );
 
-  const selectedDetails = {
+  const selectedDetails = {  
     title: expenseDetails.title,
     description: expenseDetails.description,
     date: expenseDetails.date,
     amount: expenseDetails.amount,
     category: expenseDetails.category,
   };
-
+  console.log(selectedDetails.category)
   useLayoutEffect(() => {
     navigation.setOptions({
       title: selectedDetails.title,

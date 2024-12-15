@@ -7,14 +7,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 const ExpenseList = ({ itemData }) => {
   const navigation = useNavigation();
 
-  let iconName = "coffee";
-  if (itemData.category === "drink") {
-    iconName = "coffee";
-  } else if (itemData.category === "social_need") {
-    iconName = "home";
-  } else {
-    iconName = "coins";
-  }
+
 
   function handleNavigation() {
     console.log("working");
@@ -34,7 +27,7 @@ const ExpenseList = ({ itemData }) => {
         >
           {/* icon */}
           <View style={styles.iconContainer}>
-            <FontAwesome5 name={iconName} size={24} color="white" />
+            <FontAwesome5 name={itemData.category} size={24} color="white" />
           </View>
           {/* details */}
           <View style={styles.containerText}>

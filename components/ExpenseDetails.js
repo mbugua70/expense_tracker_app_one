@@ -4,11 +4,16 @@ import { GlobalStyles } from "../constants/styles";
 import Expense from "./Expense";
 
 const ExpenseDetails = ({ selectedDetails }) => {
+  const iconDimensions = {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+  }
   return (
     <View style={styles.screen}>
       {/* we will have an icon(category) */}
       <View style={styles.iconContainer}>
-        <IconContainer category={selectedDetails.category} size={32} />
+        <IconContainer category={selectedDetails.category} size={32} iconDimensions={iconDimensions} />
       </View>
       {/* details */}
       <Expense selectedDetails={selectedDetails} />

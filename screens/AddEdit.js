@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import FormContainer from "../components/Form";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -14,7 +14,17 @@ const AddEdit = ({ route, navigation }) => {
       headerTintColor: "#fff",
     });
   }, [route, navigation, isEditting]);
-  return <View>{/* <FormContainer /> */}</View>;
+  return (
+    <View style={styles.screen}>
+      <FormContainer />
+    </View>
+  )
 };
 
 export default AddEdit;
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  }
+})
