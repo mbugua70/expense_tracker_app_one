@@ -6,13 +6,24 @@ import RecentHeaderContainer from "../components/RecentHeaderContainer";
 import { DUMMY_EXPENSES } from "../constants/dummy-data";
 import { ExpenseContext } from "../store/expenseContext";
 import { useContext } from "react";
+import { getMinusDate } from "../util/getDateHandler";
 
 const RecentExpenses = () => {
   const { expenseData } = useContext(ExpenseContext);
 
-  const expensesTotal = expenseData.reduce((sum, expense) => {
+  // recent functionality
+
+  const recentExpenses = expenseData.filter((expense) => {
+    const today = new Date();
+    const last7days = getMinusDate(today, 7);
+
+    return expense.date > last7days;
+  });
+
+  const expensesTotal = recentExpenses.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0);
+
   return (
     <View style={styles.screen}>
       {/* recent expenses */}
@@ -23,7 +34,7 @@ const RecentExpenses = () => {
       />
 
       <View style={styles.recentContainer}>
-        <ExpensesContainer expenses={expenseData} />
+        <ExpensesContainer expenses={recentExpenses} />
       </View>
     </View>
   );

@@ -2,8 +2,11 @@ import { View, Text, StyleSheet } from "react-native";
 import PrimaryButton from "./PrimaryButton";
 import { GlobalStyles } from "../constants/styles";
 import { useNavigation } from "@react-navigation/native";
+import { ExpenseContext } from "../store/expenseContext";
+import { useContext } from "react";
 
 const ManageButton = ({ expenseID }) => {
+  const { deleteExpense } = useContext(ExpenseContext);
   const navigation = useNavigation();
 
   function handleAddExpense() {
@@ -13,7 +16,9 @@ const ManageButton = ({ expenseID }) => {
   }
 
   function handleDeleteExpense() {
-    console.log("expense deteled");
+    console.log(expenseID.expensesID);
+    deleteExpense(expenseID.expensesID);
+    navigation.goBack();
   }
   return (
     <View style={styles.screen}>
