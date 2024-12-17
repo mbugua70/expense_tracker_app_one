@@ -1,9 +1,10 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import InputContainer from "./InputContainer";
 import CategoryContainer from "./CategoryContainer";
+import SubmitButton from "./SubmitButton";
 
 
-const FormContainer = () => {
+const FormContainer = ({submitText}) => {
 
   // handle function
 function handleAmount(){
@@ -32,6 +33,7 @@ function handleAmount(){
        }}/>
 
        <CategoryContainer/>
+       <SubmitButton>{submitText}</SubmitButton>
     </View>
   );
 };

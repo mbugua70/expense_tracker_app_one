@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { GlobalStyles } from '../constants/styles'
 import IconContainer from './IconContainer'
 
@@ -18,7 +18,7 @@ const CategoryIconContainer = ({category, size}) => {
     categoryName = "Drinks";
   } else if (category === "home") {
     iconName = "home";
-    categoryName = "Sleeping";
+    categoryName = "Sleep";
   } else if(category === "pizza-slice"){
     iconName = "pizza-slice";
     categoryName = "Food"
@@ -35,14 +35,14 @@ const CategoryIconContainer = ({category, size}) => {
 
   return (
     <View style={styles.screen}>
-    <View style={styles.screenContainer}>
+    <Pressable  style={({pressed}) => pressed ? [styles.screenContainer, styles.pressed] : [styles.screenContainer]}>
        <View style>
         <IconContainer category={category} size={size} iconDimensions={iconDimensions}/>
        </View>
        <View style={styles.textContainer}>
        <Text style={styles.text}>{categoryName}</Text>
        </View>
-    </View>
+    </Pressable>
   </View>
   )
 }
@@ -53,14 +53,11 @@ const styles =  StyleSheet.create({
   screen: {
     justifyContent: "center",
     alignItems: "center",
-    minWidth: 100,
-    height: 25,
-  },
-  iconContainer: {
-    backgroundColor: GlobalStyles.colors.primary800,
-  },
-   screenContainer: {
     borderRadius: 20,
+    overflow: "hidden",
+  },
+
+   screenContainer: {
     width: 110,
     height: 40,
     paddingHorizontal: 6,
@@ -75,11 +72,14 @@ const styles =  StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
     },
-
   text: {
     color: "#fff",
     paddingHorizontal: 4,
-  }
+  },
+
+  pressed: {
+    opacity: 0.75,
+  },
 
 
 })

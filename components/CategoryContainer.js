@@ -26,7 +26,7 @@
     marginHorizontal: 8,
   },
   screenIcon: {
-    marginVertical: 20,
+    marginVertical: 10,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center"
