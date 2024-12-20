@@ -3,7 +3,7 @@ import { GlobalStyles } from '../constants/styles'
 import IconContainer from './IconContainer'
 
 
-const CategoryIconContainer = ({category, size}) => {
+const CategoryIconContainer = ({category, size, onPress, isCategory}) => {
   const iconDimensions = {
     width: 40,
     height: 40,
@@ -35,7 +35,7 @@ const CategoryIconContainer = ({category, size}) => {
 
   return (
     <View style={styles.screen}>
-    <Pressable  style={({pressed}) => pressed ? [styles.screenContainer, styles.pressed] : [styles.screenContainer]}>
+    <Pressable onPress={onPress}  style={({pressed}) => pressed ? [styles.screenContainer, styles.pressed, {  backgroundColor: GlobalStyles.colors.primary800,}] : [styles.screenContainer, isCategory ? {backgroundColor: GlobalStyles.colors.accent500} : {backgroundColor: GlobalStyles.colors.primary800,}]}>
        <View style>
         <IconContainer category={category} size={size} iconDimensions={iconDimensions}/>
        </View>
@@ -61,7 +61,6 @@ const styles =  StyleSheet.create({
     width: 110,
     height: 40,
     paddingHorizontal: 6,
-    backgroundColor: GlobalStyles.colors.primary800,
     elevation: 4,
     shadowColor: "#000000",
     shadowOffset: {width: 0, height: 2},
@@ -81,5 +80,8 @@ const styles =  StyleSheet.create({
     opacity: 0.75,
   },
 
+  selectedCagory:{
+
+  }
 
 })
