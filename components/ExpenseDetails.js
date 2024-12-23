@@ -13,7 +13,7 @@ const ExpenseDetails = ({ selectedDetails }) => {
     <View style={styles.screen}>
       {/* we will have an icon(category) */}
       <View style={styles.iconContainer}>
-        <IconContainer category={selectedDetails.category} size={32} iconDimensions={iconDimensions} />
+        <IconContainer category={selectedDetails.category} size={32} iconDimensions={iconDimensions} color="white" backgroundcolor={GlobalStyles.colors.primary800}/>
       </View>
       {/* details */}
       <Expense selectedDetails={selectedDetails} />

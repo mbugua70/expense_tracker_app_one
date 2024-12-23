@@ -1,11 +1,16 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import FormContainer from "../components/Form";
+
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import {ExpenseContext} from "../store/expenseContext";
+
+import FormContainer from "../components/Form";
 import SubmitButton from "../components/SubmitButton";
 
 const AddEdit = ({ route, navigation }) => {
-  const id = route.params?.id;
+  const id = route.params;
+
+  const {addExpense, editExpense, expenseData: expenses} = useContext(ExpenseContext)
 
   const isEditting = !!id;
   let submitText = isEditting ? "EDIT" : "SUBMIT"
@@ -16,9 +21,33 @@ const AddEdit = ({ route, navigation }) => {
       headerTintColor: "#fff",
     });
   }, [route, navigation, isEditting]);
+
+  // handlesubmission
+
+  function handleSubmission(expenseData){
+
+    if(submitText === "SUBMIT"){
+       addExpense(expenseData)
+       navigation.goBack()
+    }
+
+
+    if(submitText === "EDIT"){
+     editExpense(id.id.expensesID, expenseData)
+     navigation.goBack();
+    }
+
+ }
+
+  // default values when on editing state
+
+
+    const selectedExpense = isEditting && (expenses.find((expense) => expense.id === id.id.expensesID));
+
+
   return (
     <View style={styles.screen}>
-      <FormContainer submitText={submitText}/>
+      <FormContainer submitText={submitText}  onSubmit={handleSubmission} selectedExpense={selectedExpense }/>
     </View>
   )
 };

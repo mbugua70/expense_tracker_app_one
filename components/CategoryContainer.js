@@ -2,24 +2,24 @@
  import CategoryIconContainer from './CategoryIconContainer'
 import { useState } from 'react'
 
- const CategoryContainer = () => {
-  const [isCategory, setCategory] = useState(false)
-  function handleCategory(){
-    setCategory(prev => !prev)
-    console.log(isCategory)
+ const CategoryContainer = ({onCategory, category}) => {
+  const [isCategory, setCategory] = useState(category ? category : null)
+  function handleCategory(category){
+    setCategory(category)
+    onCategory(category);
   }
    return (
      <View style={styles.screen}>
        <Text>Category</Text>
        <View style={styles.screenIcon}>
-        <CategoryIconContainer category="coffee" size="20" onPress={handleCategory} isCategory={isCategory}/>
-        <CategoryIconContainer category="home" size="20" onPress={handleCategory} isCategory={isCategory}/>
-        <CategoryIconContainer category="car" size="20"onPress={handleCategory} isCategory={isCategory} />
+        <CategoryIconContainer category="coffee" size="20" onPress={()=>handleCategory("coffee")} activeCategory={isCategory === "coffee"}/>
+        <CategoryIconContainer category="home" size="20" onPress={() => handleCategory("home")} activeCategory={isCategory === "home"}/>
+        <CategoryIconContainer category="car" size="20"onPress={()=>handleCategory("car")} activeCategory={isCategory === "car"}/>
        </View>
        <View style={styles.screenIcon}>
-        <CategoryIconContainer category="gas-pump" size="20" onPress={handleCategory} isCategory={isCategory} />
-        <CategoryIconContainer category="pizza-slice" size="20" onPress={handleCategory} isCategory={isCategory} />
-        <CategoryIconContainer category="coins" size="20" onPress={handleCategory} isCategory={isCategory} />
+        <CategoryIconContainer category="gas-pump" size="20" onPress={() => handleCategory("gas-pump")} activeCategory={isCategory === "gas-pump"} />
+        <CategoryIconContainer category="pizza-slice" size="20" onPress={()=>handleCategory("pizza-slice")}  activeCategory={isCategory === "pizza-slice"} />
+        <CategoryIconContainer category="coins" size="18" onPress={() => handleCategory("coins")}  activeCategory={isCategory === "coins"}/>
        </View>
      </View>
    )

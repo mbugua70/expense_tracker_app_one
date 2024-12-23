@@ -3,11 +3,11 @@ import { GlobalStyles } from '../constants/styles'
 import IconContainer from './IconContainer'
 
 
-const CategoryIconContainer = ({category, size, onPress, isCategory}) => {
+const CategoryIconContainer = ({category, size, onPress, activeCategory}) => {
   const iconDimensions = {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
   }
 
   // icon functonality
@@ -35,9 +35,9 @@ const CategoryIconContainer = ({category, size, onPress, isCategory}) => {
 
   return (
     <View style={styles.screen}>
-    <Pressable onPress={onPress}  style={({pressed}) => pressed ? [styles.screenContainer, styles.pressed, {  backgroundColor: GlobalStyles.colors.primary800,}] : [styles.screenContainer, isCategory ? {backgroundColor: GlobalStyles.colors.accent500} : {backgroundColor: GlobalStyles.colors.primary800,}]}>
+    <Pressable onPress={onPress}  style={({pressed}) => pressed ? [styles.screenContainer, styles.pressed, {  backgroundColor: GlobalStyles.colors.primary800,}] : [styles.screenContainer, activeCategory ? {backgroundColor: GlobalStyles.colors.accent500} : {backgroundColor: GlobalStyles.colors.primary800,}]}>
        <View style>
-        <IconContainer category={category} size={size} iconDimensions={iconDimensions}/>
+        <IconContainer category={category} size={size} iconDimensions={iconDimensions} color={activeCategory ?GlobalStyles.colors.primary800 : "white"} backgroundcolor={activeCategory ? "white" :GlobalStyles.colors.primary800}/>
        </View>
        <View style={styles.textContainer}>
        <Text style={styles.text}>{categoryName}</Text>

@@ -3,13 +3,27 @@ import ContainerItem from "./ContainerItem";
 import { getDateHandler } from "../util/getDateHandler";
 
 const Expense = ({ selectedDetails }) => {
-  let categoryName = selectedDetails.category;
-  if (categoryName === "drink") {
+  let category = selectedDetails.category;
+  let categoryName;
+
+
+  if (category === "coffee") {
     categoryName = "Drinks";
-  } else if (categoryName === "social_need") {
-    categoryName = "Social Need";
-  } else {
-    categoryName = "Learning";
+  } else if (category === "home") {
+
+    categoryName = "Sleep";
+  } else if(category === "pizza-slice"){
+
+    categoryName = "Food"
+  }else if (category === "car"){
+
+    categoryName = "Travel"
+  }else if(category === "gas-pump"){
+
+    categoryName = "Fuel";
+  }else if(category ==="coins"){
+
+    categoryName = "Hire"
   }
   return (
     <>

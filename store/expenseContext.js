@@ -2,8 +2,8 @@ import { createContext, useReducer, useState } from "react";
 import { DUMMY_EXPENSES } from "../constants/dummy-data";
 
 export const ExpenseContext = createContext({
-  expenses: [],
-  addExpense: ({ title, description, amount, date }) => {},
+  expenseData: [],
+  addExpense: ({ title, description, amount, date, category }) => {},
   deleteExpense: (id) => {},
   editExpense: (id, { title, description, amount, date }) => {},
 });
@@ -20,6 +20,7 @@ function expenseReducer(state, action) {
       const updatedIndex = state.findIndex(
         (expense) => expense.id === action.payload.id
       );
+
       const updatebleExpense = state[updatedIndex];
       const updatedItem = { ...updatebleExpense, ...action.payload.data };
       const updatedExpenses = [...state];
@@ -42,6 +43,7 @@ function ExpenseContextProvider({ children }) {
   }
 
   function editExpense(id, data) {
+
     dispatch({ type: "UPDATE", payload: { id: id, data: data } });
   }
 
