@@ -10,19 +10,31 @@ import SubmitButton from "./SubmitButton";
 const FormContainer = ({submitText,  selectedExpense, onSubmit}) => {
 
   const [category, setCategory] = useState(selectedExpense ? selectedExpense.category : "");
-  const [inputValue, setInputValue] = useState({
-    amount: selectedExpense ? selectedExpense.amount.toString() : "",
-    date: selectedExpense ? selectedExpense.date. toString() : "",
-    title: selectedExpense ? selectedExpense.title  : "",
-    description: selectedExpense? selectedExpense.description : "",
+  const [inputs, setInputs] = useState({
+    amount: {
+      value: selectedExpense ? selectedExpense.amount.toString() : "",
+      isValid: true,
+    },
+    date: {
+      value: selectedExpense ? selectedExpense.date. toString() : "",
+      isValid: true,
+    },
+    title: {
+      value: selectedExpense ? selectedExpense.title  : "",
+      isValid: true
+    },
+    description: {
+      value: selectedExpense? selectedExpense.description : "",
+      isValid: true,
+    },
   })
 
   // handle function
 function handleInputChange(inputType, enteredText){
-  setInputValue((prevValue) => {
+  setInputs((prevValue) => {
     return {
       ...prevValue,
-      [inputType]: enteredText
+      [inputType]: {value: enteredText}
     }
   })
 }
@@ -42,34 +54,34 @@ function  handleCategory (inputCategory) {
     <View style={styles.screen}>
       <View style={styles.flexContainer}>
        <View style={styles.flexItem}>
-       <InputContainer label="Title"  textConfig={{
+       <InputContainer label="Title" invalid={!inputs.title.isValid}  textConfig={{
         onChangeText: handleInputChange.bind(this,"title"),
-        value: inputValue.title
+        value: inputs.title.value
        }}/>
        </View>
       <View style={styles.flexItem}>
-      <InputContainer label="Amount" textConfig={{
+      <InputContainer label="Amount" invalid={!inputs.amount.isValid} textConfig={{
          keyboardType: 'decimal-pad',
          placeholder: "KES 0.00",
          onChangeText: handleInputChange.bind(this,"amount"),
-         value: inputValue.amount
+         value: inputs.amount.value
        }}/>
       </View>
       </View>
-        <InputContainer label="Date" textConfig={{
+        <InputContainer label="Date" invalid={!inputs.date.isValid}  textConfig={{
           placeholder: "YYYY-MM-DD",
          maxLength: 10,
          onChangeText: handleInputChange.bind(this,"date"),
-         value: inputValue.date
+         value: inputs.date.value
        }}/>
-       <InputContainer label="Description" textConfig={{
+       <InputContainer label="Description" invalid={!inputs.description.isValid} textConfig={{
         multiline: true,
         onChangeText: handleInputChange.bind(this,"description"),
-        value: inputValue.description
+        value: inputs.description.value
        }}/>
 
-       <CategoryContainer onCategory={handleCategory} category={category}/>  
-       <SubmitButton onSubmit={onSubmit} inputValue={inputValue} category={category}>{submitText}</SubmitButton>
+       <CategoryContainer onCategory={handleCategory} category={category}/>
+       <SubmitButton onSubmit={onSubmit} inputs={inputs} category={category}>{submitText}</SubmitButton>
     </View>
   );
 };

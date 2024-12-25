@@ -12,6 +12,7 @@ import BackButtonIcon from "./components/BackButtonIcon";
 import AddEdit from "./screens/AddEdit";
 import ExpenseContextProvider from "./store/expenseContext";
 
+
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -51,6 +52,7 @@ function BottomTabNavigator() {
             },
           }}
         />
+
       </BottomTab.Navigator>
     </>
   );
@@ -96,13 +98,14 @@ export default function App() {
               headerStyle: { backgroundColor: GlobalStyles.colors.primary800 },
               headerBackButtonDisplayMode: "minimal",
               headerShadowVisible: false,
-              headerLeft: ({ headerTintColor }) => {
+              headerLeft: ({ headerTintColor })  => {
                 return <BackButtonIcon tintColor={headerTintColor} />;
               },
             }}
           />
         </Stack.Navigator>
       </NavigationContainer>
+
       </ExpenseContextProvider>
     </>
   );

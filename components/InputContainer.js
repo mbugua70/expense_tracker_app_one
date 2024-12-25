@@ -2,7 +2,13 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { GlobalStyles } from '../constants/styles'
 
 
-const InputContainer = ({label, textConfig}) => {
+const InputContainer = ({label, textConfig, invalid}) => {
+
+  // validating  the input form
+  if(invalid){
+    input.push(styles.inputValid);
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.label}>{label}</Text>
@@ -33,6 +39,10 @@ input: {
   fontSize: 16,
   color: GlobalStyles.colors.primary700
 
+},
+
+inputValid: {
+  backgroundColor: GlobalStyles.colors.error50,
 }
 
 })

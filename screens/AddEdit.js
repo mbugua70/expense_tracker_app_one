@@ -1,5 +1,6 @@
 import { useContext, useLayoutEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Toast from 'react-native-toast-message';
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import {ExpenseContext} from "../store/expenseContext";
@@ -26,16 +27,36 @@ const AddEdit = ({ route, navigation }) => {
 
   function handleSubmission(expenseData){
 
-    if(submitText === "SUBMIT"){
-       addExpense(expenseData)
-       navigation.goBack()
+    const isAmountValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
+    const isTitleValid = expenseData.title.trim().length > 0;
+    const isDateValid = expenseData.date.toString() !== "Invalid Date";
+    const isDescriptionValid = expenseData.description.trim().length > 0;
+    const isCategoryValid = expenseData.category.trim().length > 0;
+
+
+    if(!isAmountValid || !isTitleValid || !isDateValid || !isDescriptionValid || !isCategoryValid){
+      console.log("validation");
+      Toast.show({
+        type: "error",
+        text1: 'Please check all your input values',
+        position: 'bottom'
+      });
+      return
+    }else{
+
+      if(submitText === "SUBMIT"){
+        addExpense(expenseData)
+        navigation.goBack()
+     }
+
+
+     if(submitText === "EDIT"){
+      editExpense(id.id.expensesID, expenseData)
+      navigation.goBack();
+     }
     }
 
 
-    if(submitText === "EDIT"){
-     editExpense(id.id.expensesID, expenseData)
-     navigation.goBack();
-    }
 
  }
 
@@ -48,6 +69,7 @@ const AddEdit = ({ route, navigation }) => {
   return (
     <View style={styles.screen}>
       <FormContainer submitText={submitText}  onSubmit={handleSubmission} selectedExpense={selectedExpense }/>
+      <Toast />
     </View>
   )
 };

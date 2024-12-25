@@ -2,16 +2,16 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { GlobalStyles } from '../constants/styles'
 
 
-const SubmitButton = ({children, onSubmit, inputValue, category}) => {
+const SubmitButton = ({children, onSubmit, inputs, category}) => {
 
   // handleform submission
   function handleSubmission(){
     const expenseData = {
-      amount: +inputValue.amount,
-      title: inputValue.title,
+      amount: +inputs.amount.value,
+      title: inputs.title.value,
       category: category,
-      date: new Date(inputValue.date),
-      description: inputValue.description
+      date: new Date(inputs.date.value),
+      description: inputs.description.value
      }
      onSubmit(expenseData)
   }
