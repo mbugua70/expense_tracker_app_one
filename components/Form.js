@@ -1,5 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useState , useImperativeHandle, forwardRef} from "react";
 import { ExpenseContext } from "../store/expenseContext";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,7 +7,7 @@ import InputContainer from "./InputContainer";
 import CategoryContainer from "./CategoryContainer";
 import SubmitButton from "./SubmitButton";
 
-const FormContainer = ({submitText,  selectedExpense, onSubmit}) => {
+const FormContainer =  forwardRef(({submitText,  selectedExpense, onSubmit}, ref) => {
 
   const [category, setCategory] = useState(selectedExpense ? selectedExpense.category : "");
   const [inputs, setInputs] = useState({
@@ -34,10 +34,28 @@ function handleInputChange(inputType, enteredText){
   setInputs((prevValue) => {
     return {
       ...prevValue,
-      [inputType]: {value: enteredText}
+      [inputType]: {value: enteredText, isValid: true}
     }
   })
 }
+
+function handleInputvalidation (isAmountValid, isDateValid, isTitleValid, isDescriptionValid){
+  setInputs((prevInputs) => {
+    return {
+      amount: {value: inputs.amount.value, isValid: isAmountValid},
+      date: {value: inputs.amount.value, isValid: isDateValid},
+      title: {value: inputs.amount.value, isValid: isTitleValid},
+      description: {value: inputs.amount.value, isValid: isDescriptionValid},
+    }
+  })
+}
+
+// handle input validation state.
+
+useImperativeHandle(ref,() => ({
+  handleInputvalidation,
+
+}))
 
 // handle category function
 
@@ -84,7 +102,7 @@ function  handleCategory (inputCategory) {
        <SubmitButton onSubmit={onSubmit} inputs={inputs} category={category}>{submitText}</SubmitButton>
     </View>
   );
-};
+});
 
 export default FormContainer;
 

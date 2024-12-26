@@ -1,18 +1,22 @@
+import {useEffect} from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { GlobalStyles } from '../constants/styles'
 
 
 const InputContainer = ({label, textConfig, invalid}) => {
 
-  // validating  the input form
+  const inputStyles = [styles.input]
+
+  // validation logic
   if(invalid){
-    input.push(styles.inputValid);
+    inputStyles.push(styles.inputValid);
+    console.log(invalid);
   }
 
   return (
     <View style={styles.screen}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} {...textConfig}/>
+      <TextInput style={inputStyles} {...textConfig}/>
     </View>
   )
 }

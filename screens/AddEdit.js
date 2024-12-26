@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect } from "react";
+import { useContext, useLayoutEffect, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Toast from 'react-native-toast-message';
 
@@ -11,6 +11,7 @@ import SubmitButton from "../components/SubmitButton";
 const AddEdit = ({ route, navigation }) => {
   const id = route.params;
 
+   const childRef = useRef(null)
   const {addExpense, editExpense, expenseData: expenses} = useContext(ExpenseContext)
 
   const isEditting = !!id;
@@ -41,6 +42,9 @@ const AddEdit = ({ route, navigation }) => {
         text1: 'Please check all your input values',
         position: 'bottom'
       });
+
+      // form input validation
+      childRef.current.handleInputvalidation(isAmountValid, isDateValid, isTitleValid, isDescriptionValid)
       return
     }else{
 
@@ -68,7 +72,7 @@ const AddEdit = ({ route, navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <FormContainer submitText={submitText}  onSubmit={handleSubmission} selectedExpense={selectedExpense }/>
+      <FormContainer submitText={submitText} ref={childRef}  onSubmit={handleSubmission} selectedExpense={selectedExpense }/>
       <Toast />
     </View>
   )
