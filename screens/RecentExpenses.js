@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import TotalDashboard from "../components/TotalDashboard";
 import Expenses from "../components/Expenses";
 import ExpensesContainer from "../components/ExpensesContainer";
@@ -24,6 +24,22 @@ const RecentExpenses = () => {
     return sum + expense.amount;
   }, 0);
 
+
+  let content;
+
+  if(recentExpenses.length === 0 && expensesTotal === 0){
+     content = (
+      <View style={styles.rootScreen}>
+      <Image source={require("../assets/empty-box.png")} style={styles.image} />
+      <Text style={styles.favoriteText}>You have no recent  expenses</Text>
+    </View>
+     )
+  }else{
+  content = <ExpensesContainer expenses={recentExpenses} />
+
+  }
+
+
   return (
     <View style={styles.screen}>
       {/* recent expenses */}
@@ -34,7 +50,11 @@ const RecentExpenses = () => {
       />
 
       <View style={styles.recentContainer}>
-        <ExpensesContainer expenses={recentExpenses} />
+
+          {/* code to. show if their are no expenses */}
+
+          {content}
+
       </View>
     </View>
   );
@@ -50,5 +70,23 @@ const styles = StyleSheet.create({
   recentContainer: {
     flex: 2,
     paddingHorizontal: 10,
+  },
+
+  rootScreen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  favoriteText: {
+    marginTop: 10,
+    color: "#000000",
+    textAlign: "center",
+    fontSize: 18,
+  },
+
+  image: {
+    width: 100,
+    height: 100,
   },
 });
