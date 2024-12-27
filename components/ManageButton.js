@@ -3,10 +3,13 @@ import PrimaryButton from "./PrimaryButton";
 import { GlobalStyles } from "../constants/styles";
 import { useNavigation } from "@react-navigation/native";
 import { ExpenseContext } from "../store/expenseContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { deleteExpenseId } from "../http/http";
+import LoadingIU from "../ui/LoadingIU";
 
 const ManageButton = ({ expenseID }) => {
   const { deleteExpense } = useContext(ExpenseContext);
+  const [isDeleting, setIsDeleting] = useState()
   const navigation = useNavigation();
 
   function handleAddExpense() {
@@ -15,10 +18,18 @@ const ManageButton = ({ expenseID }) => {
     });
   }
 
-  function handleDeleteExpense() {
-    console.log(expenseID.expensesID);
+ async function handleDeleteExpense() {
+    setIsDeleting(true);
+     await deleteExpenseId(expenseID.expensesID);
     deleteExpense(expenseID.expensesID);
     navigation.goBack();
+  }
+
+
+  // loading spinner
+
+  if(isDeleting){
+    return <LoadingIU/>
   }
   return (
     <View style={styles.screen}>

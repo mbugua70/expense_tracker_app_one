@@ -1,17 +1,39 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image} from "react-native";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 import TotalDashboard from "../components/TotalDashboard";
 import Expenses from "../components/Expenses";
 import ExpensesContainer from "../components/ExpensesContainer";
 import RecentHeaderContainer from "../components/RecentHeaderContainer";
 import { DUMMY_EXPENSES } from "../constants/dummy-data";
 import { ExpenseContext } from "../store/expenseContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getMinusDate } from "../util/getDateHandler";
+import { fetchExpenses } from "../http/http";
+import LoadingIU from "../ui/LoadingIU";
 
 const RecentExpenses = () => {
-  const { expenseData } = useContext(ExpenseContext);
+  const { expenseData, setExpenses } = useContext(ExpenseContext);
+  const [fetchedExpenses, setFetchedExpenses] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const [error, setError] = useState();
 
   // recent functionality
+
+  useEffect(() => {
+   async function getExpenses(){
+         try{
+          const expenses = await fetchExpenses()
+          setExpenses(expenses);
+         }catch(error){
+          setError("Could not fetch recent expenses")
+         }
+         setIsFetching(false);
+
+        //  setFetchedExpenses(expenses);
+   }
+
+   getExpenses();
+  }, [])
 
   const recentExpenses = expenseData.filter((expense) => {
     const today = new Date();
@@ -40,7 +62,34 @@ const RecentExpenses = () => {
   }
 
 
+  useEffect(() => {
+    if (error && !isFetching) {
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: error,
+        button: 'close',
+        onPressButton: async ()=> {
+          try{
+            setIsFetching(true)
+            const expenses = await fetchExpenses()
+            setExpenses(expenses);
+          }catch(error){
+            setError("Could not fetch recent expenses");
+          }
+          setIsFetching(false)
+        }
+      });
+    }
+  }, [error, isFetching]);
+
+  if(isFetching){
+    return <LoadingIU />
+  }
+
+
   return (
+    <AlertNotificationRoot>
     <View style={styles.screen}>
       {/* recent expenses */}
 
@@ -57,6 +106,7 @@ const RecentExpenses = () => {
 
       </View>
     </View>
+    </AlertNotificationRoot>
   );
 };
 

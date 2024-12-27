@@ -1,16 +1,34 @@
+import { useContext, useEffect, useState} from "react";
 import { View, Text, StyleSheet, Image } from 'react-native'
+
+// utilities
+import { DUMMY_EXPENSES } from "../constants/dummy-data";
+import { ExpenseContext } from "../store/expenseContext";
+
+import { fetchExpenses } from "../http/http";
+// components
 import Dashboard from '../components/Dashboard'
 import Expenses from '../components/Expenses'
 import HeaderExpenses from "../components/HeaderExpenses";
 import AddNewExpense from "../components/AddNewExpense";
-import { DUMMY_EXPENSES } from "../constants/dummy-data";
-import { ExpenseContext } from "../store/expenseContext";
-import { useContext } from "react";
+import LoadingIU from "../ui/LoadingIU";
+
 
 const AllExpenses = () => {
-  const { expenseData } = useContext(ExpenseContext);
-
+  const { expenseData, setExpenses } = useContext(ExpenseContext);
+  const [isFetching, setIsFetching] = useState(true);
   let content;
+
+   useEffect(() => {
+     async function getExpenses(){
+           const expenses = await fetchExpenses()
+           setIsFetching(false);
+           setExpenses(expenses);
+          //  setFetchedExpenses(expenses);
+     }
+
+     getExpenses();
+    }, [])
 
   if(expenseData.length === 0){
     content = (<View style={styles.rootScreen}>
@@ -20,6 +38,12 @@ const AllExpenses = () => {
   }else{
     content=  <Expenses expenses={expenseData} />
   }
+
+  // loading UI functionality
+  if(isFetching){
+    return <LoadingIU/>
+  }
+
   return (
     <View style={styles.screen}>
       <Dashboard expenses={expenseData} />
@@ -27,6 +51,7 @@ const AllExpenses = () => {
       {/* <HeaderExpenses /> */}
 
        {content}
+       {/* <Expenses expenses={expenseData} /> */}
       <AddNewExpense />
     </View>
   );

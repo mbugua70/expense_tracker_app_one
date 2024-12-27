@@ -3,7 +3,8 @@ import { DUMMY_EXPENSES } from "../constants/dummy-data";
 
 export const ExpenseContext = createContext({
   expenseData: [],
-  addExpense: ({ title, description, amount, date, category }) => {},
+  setExpense: (expenses)=> {},
+  addExpenses: ({ title, description, amount, date, category }) => {},
   deleteExpense: (id) => {},
   editExpense: (id, { title, description, amount, date }) => {},
 });
@@ -12,8 +13,11 @@ export const ExpenseContext = createContext({
 function expenseReducer(state, action) {
   switch (action.type) {
     case "ADD":
-      const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id }, ...state];
+      // const id = new Date().toString() + Math.random().toString();
+      return [{ ...action.payload}, ...state];
+    case "SET":
+      const inverted = action.payload.reverse();
+      return  inverted;
     case "DELETE":
       return state.filter((expense) => expense.id !== action.payload);
     case "UPDATE":
@@ -32,7 +36,7 @@ function expenseReducer(state, action) {
 }
 
 function ExpenseContextProvider({ children }) {
-  const [expensesState, dispatch] = useReducer(expenseReducer, DUMMY_EXPENSES);
+  const [expensesState, dispatch] = useReducer(expenseReducer, []);
 
   function addExpense(data) {
     dispatch({ type: "ADD", payload: data });
@@ -40,6 +44,10 @@ function ExpenseContextProvider({ children }) {
 
   function deleteExpense(id) {
     dispatch({ type: "DELETE", payload: id });
+  }
+
+  function setExpenses(expenses){
+    dispatch({type: "SET", payload: expenses})
   }
 
   function editExpense(id, data) {
@@ -51,6 +59,7 @@ function ExpenseContextProvider({ children }) {
     addExpense: addExpense,
     deleteExpense: deleteExpense,
     editExpense: editExpense,
+    setExpenses: setExpenses,
     expenseData: expensesState,
   };
 
