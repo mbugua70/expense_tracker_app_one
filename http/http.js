@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-let BACKEND_URL = "https://react-native-expense-app-744f1-default-rtdb.firebaseio.co"
+let BACKEND_URL = "https://react-native-expense-app-744f1-default-rtdb.firebaseio.com"
 
 
 export async function createExpense(expenseData){
@@ -35,10 +35,14 @@ export async function fetchExpenses(){
  }
 
 
- export function updateExpense  (id, expenseData ){
-  console.log(id);
+ export async function updateExpense  (expenseId, expenseData ){
+  console.log(expenseId);
+
   // by returning a promise will help us to take advantage of the loading state
-  return axios.patch(`${BACKEND_URL}/expenses/${id}.json`, expenseData)
+  const response = await axios.patch(`${BACKEND_URL}/expenses/${expenseId}.json`, expenseData)
+
+  // const id = response.data.name
+  return response.status;
  }
 
  export function deleteExpenseId(id){

@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
+import { ALERT_TYPE, Dialog, AlertNotificationRoot } from 'react-native-alert-notification';
 import Toast from 'react-native-toast-message';
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
@@ -42,7 +42,7 @@ const AddEdit = ({ route, navigation }) => {
 
 
     if(!isAmountValid || !isTitleValid || !isDateValid || !isDescriptionValid || !isCategoryValid){
-      console.log("validation");
+
       Toast.show({
         type: "error",
         text1: 'Please check all your input values',
@@ -58,8 +58,24 @@ const AddEdit = ({ route, navigation }) => {
        try{
         setIsManaging(true);
         const id = await  createExpense(expenseData);
+        setIsManaging(false);
         addExpense({...expenseData, id: id})
-        navigation.goBack()
+
+
+           if (id && !error && !isManaging) {
+             Toast.show({
+               type: "info",
+               text1: 'An expense has been added successfully',
+               position: 'bottom',
+               topOffset: 10,
+             });
+           }
+
+
+
+        setTimeout(()=>{
+          navigation.goBack()
+        },2000)
 
        }catch(error){
         setError("Failed to add the expense")
@@ -73,8 +89,20 @@ const AddEdit = ({ route, navigation }) => {
         editExpense(id.id.expensesID, expenseData)
 
         // here we will wait for the promise to finish it's so as to take also advantage of creating loading UI.
-         await updateExpense(id.id.expensesID,expenseData)
-        navigation.goBack();
+        const status = await updateExpense(id.id.expensesID,expenseData);
+
+         setIsManaging(false);
+         if(status === 200 && !error && !isManaging){
+          Toast.show({
+            type: "success",
+            text1: 'An expense has been updated successfully',
+            position: 'bottom'
+          });
+         }
+
+         setTimeout(() => {
+          navigation.goBack();
+         }, 2000)
 
        }catch(error){
         setError("Failed to update the expense")
@@ -99,13 +127,11 @@ const AddEdit = ({ route, navigation }) => {
       });
     }
 
-    if(isManaging){
-      return <LoadingIU/>
-    }
 
   return (
    <AlertNotificationRoot>
      <View style={styles.screen}>
+      {isManaging && <LoadingIU/>}
       <FormContainer submitText={submitText} ref={childRef}  onSubmit={handleSubmission} selectedExpense={selectedExpense }/>
       <Toast />
     </View>

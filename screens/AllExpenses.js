@@ -20,7 +20,7 @@ const AllExpenses = ({navigation}) => {
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState();
 
-  console.log(navigation);
+
   let content;
 
    useEffect(() => {
@@ -51,7 +51,7 @@ const AllExpenses = ({navigation}) => {
   //  error ui
   useEffect(() => {
     if (error && !isFetching) {
-      console.log(error);
+     
       Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',

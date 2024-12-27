@@ -64,6 +64,7 @@ const RecentExpenses = () => {
 
   useEffect(() => {
     if (error && !isFetching) {
+    
       Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',
