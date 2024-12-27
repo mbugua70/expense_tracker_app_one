@@ -1,5 +1,6 @@
 import { useContext, useLayoutEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 import Toast from 'react-native-toast-message';
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
@@ -14,6 +15,7 @@ import LoadingIU from "../ui/LoadingIU";
 const AddEdit = ({ route, navigation }) => {
   const id = route.params;
   const [isManaging, setIsManaging] = useState();
+  const  [error, setError] = useState();
 
    const childRef = useRef(null)
   const {addExpense, editExpense, expenseData: expenses} = useContext(ExpenseContext)
@@ -53,20 +55,30 @@ const AddEdit = ({ route, navigation }) => {
     }else{
 
       if(submitText === "SUBMIT"){
+       try{
         setIsManaging(true);
         const id = await  createExpense(expenseData);
         addExpense({...expenseData, id: id})
         navigation.goBack()
+
+       }catch(error){
+        setError("Failed to add the expense")
+       }
      }
 
 
      if(submitText === "EDIT"){
-      setIsManaging(true)
-      editExpense(id.id.expensesID, expenseData)
+       try{
+        setIsManaging(true)
+        editExpense(id.id.expensesID, expenseData)
 
-      // here we will wait for the promise to finish it's so as to take also advantage of creating loading UI.
-       await updateExpense(id.id.expensesID,expenseData)
-      navigation.goBack();
+        // here we will wait for the promise to finish it's so as to take also advantage of creating loading UI.
+         await updateExpense(id.id.expensesID,expenseData)
+        navigation.goBack();
+
+       }catch(error){
+        setError("Failed to update the expense")
+       }
      }
     }
 
@@ -77,15 +89,27 @@ const AddEdit = ({ route, navigation }) => {
 
     const selectedExpense = isEditting && (expenses.find((expense) => expense.id === id.id.expensesID));
 
+    if(error && !isManaging){
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: error,
+        closeOnOverlayTap: true,
+        button: 'close',
+      });
+    }
+
     if(isManaging){
       return <LoadingIU/>
     }
 
   return (
-    <View style={styles.screen}>
+   <AlertNotificationRoot>
+     <View style={styles.screen}>
       <FormContainer submitText={submitText} ref={childRef}  onSubmit={handleSubmission} selectedExpense={selectedExpense }/>
       <Toast />
     </View>
+   </AlertNotificationRoot>
   )
 };
 

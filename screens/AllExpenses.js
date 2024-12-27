@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState} from "react";
+import { ALERT_TYPE, Dialog, AlertNotificationRoot, Toast } from 'react-native-alert-notification';
 import { View, Text, StyleSheet, Image } from 'react-native'
 
 // utilities
@@ -14,23 +15,31 @@ import AddNewExpense from "../components/AddNewExpense";
 import LoadingIU from "../ui/LoadingIU";
 
 
-const AllExpenses = () => {
+const AllExpenses = ({navigation}) => {
   const { expenseData, setExpenses } = useContext(ExpenseContext);
   const [isFetching, setIsFetching] = useState(true);
+  const [error, setError] = useState();
+
+  console.log(navigation);
   let content;
 
    useEffect(() => {
      async function getExpenses(){
-           const expenses = await fetchExpenses()
-           setIsFetching(false);
-           setExpenses(expenses);
-          //  setFetchedExpenses(expenses);
+        try{
+          const expenses = await fetchExpenses()
+          setExpenses(expenses);
+         //  setFetchedExpenses(expenses);
+
+        }catch(error){
+          setError("Could not fetch the expenses")
+        }
+        setIsFetching(false);
      }
 
      getExpenses();
     }, [])
 
-  if(expenseData.length === 0){
+  if(expenseData.length === 0 && !error && !isFetching){
     content = (<View style={styles.rootScreen}>
           <Image source={require("../assets/empty-box.png")} style={styles.image} />
           <Text style={styles.favoriteText}>You have no expenses</Text>
@@ -39,12 +48,40 @@ const AllExpenses = () => {
     content=  <Expenses expenses={expenseData} />
   }
 
+  //  error ui
+  useEffect(() => {
+    if (error && !isFetching) {
+      console.log(error);
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Error',
+        textBody: error,
+        closeOnOverlayTap: true,
+        button: 'close',
+        onPressButton: async ()=> {
+
+            try{
+              setIsFetching(true)
+              const expenses = await fetchExpenses()
+              setExpenses(expenses);
+            }catch(error){
+              setError("Could not fetch the expenses");
+            }
+
+          setIsFetching(false)
+        }
+      });
+    }
+  }, [error, isFetching, navigation]);
+
+
   // loading UI functionality
   if(isFetching){
     return <LoadingIU/>
   }
 
   return (
+    <AlertNotificationRoot>
     <View style={styles.screen}>
       <Dashboard expenses={expenseData} />
       {/* heading for expenses and button */}
@@ -54,6 +91,7 @@ const AllExpenses = () => {
        {/* <Expenses expenses={expenseData} /> */}
       <AddNewExpense />
     </View>
+    </AlertNotificationRoot>
   );
 };
 

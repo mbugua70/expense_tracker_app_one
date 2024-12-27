@@ -49,7 +49,7 @@ const RecentExpenses = () => {
 
   let content;
 
-  if(recentExpenses.length === 0 && expensesTotal === 0){
+  if(recentExpenses.length === 0 && expensesTotal === 0 && !error && !isFetching){
      content = (
       <View style={styles.rootScreen}>
       <Image source={require("../assets/empty-box.png")} style={styles.image} />
@@ -68,8 +68,10 @@ const RecentExpenses = () => {
         type: ALERT_TYPE.DANGER,
         title: 'Error',
         textBody: error,
+        closeOnOverlayTap: true,
         button: 'close',
         onPressButton: async ()=> {
+
           try{
             setIsFetching(true)
             const expenses = await fetchExpenses()
@@ -78,6 +80,7 @@ const RecentExpenses = () => {
             setError("Could not fetch recent expenses");
           }
           setIsFetching(false)
+
         }
       });
     }
